@@ -1,0 +1,7 @@
+---
+- name: 'AWS CLI | Install AWS CLI via PIP.'
+  become: yes
+  pip:
+    name: 'awscli'
+    state: latest
+    version: latest
