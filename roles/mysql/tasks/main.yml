@@ -1,0 +1,31 @@
+---
+# tasks file for mysql
+
+- name: Ensure required dependencies are present.
+  apt:
+    name:
+      - apt-transport-https
+      - gnupg2
+      - mysql-common
+      - debsums
+      - libaio1
+      - libmecab2
+    state: present
+    update_cache: yes
+
+- name: install pcorna .
+  apt: 
+    deb: https://repo.percona.com/apt/percona-release_latest.$(lsb_release -sc)_all.deb
+
+- name: pcocrna server
+  apt:
+    name: percona-server-server-5.7
+  state: present
+  update_cache: yes
+
+- name: configure pocorna 
+  shell: |
+      sudo -i 
+      mysql -e "CREATE FUNCTION fnvla_64 RETURNS INTEGER SONAME 'libfnvla_udf.so'"
+      mysql -e "CREATE FUNCTION fnv_64 RETURNS INTEGER SONAME 'libfnv_udf.so'"
+      mysql -e "CREATE FUNCTION murmur_hash RETURNS INTEGER SONAME 'libmurmur_udf.so'"

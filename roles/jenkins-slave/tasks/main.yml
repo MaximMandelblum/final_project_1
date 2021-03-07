@@ -1,7 +1,12 @@
 ---
+- name: Install or update pip
+  package:
+    name: python3-pip
+    state: latest
+
 - name: 'AWS CLI | Install AWS CLI via PIP.'
   become: yes
   pip:
     name: 'awscli'
     state: latest
-    version: latest
+    

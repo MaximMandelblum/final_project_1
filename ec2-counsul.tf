@@ -1,5 +1,5 @@
 resource "aws_instance" "consul_server" {
-  count = var.consul_server_count
+  count = var.consul_server
   ami           = lookup(var.ami, var.aws_region)
   instance_type = "t2.micro"
   key_name      = var.key_name

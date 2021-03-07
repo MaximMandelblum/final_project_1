@@ -40,6 +40,11 @@ variable "jenkins_agent" {
   type        = string
   default     = 1
 }
+variable "elk_server" {
+  description = " number of needed elk servers to build "
+  type        = string
+  default     = 1
+}
 variable "prometheus_server" {
   type        = string
   default = 1
