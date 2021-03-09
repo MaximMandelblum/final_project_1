@@ -12,7 +12,7 @@
 # iam_instance_profile   = aws_iam_instance_profile.consul-join.name
 # vpc_security_group_ids = [aws_security_group.bastion.id]
 # tags = {
-# Name = "bastion"
+# Name = "kandula-bastion"
 # consul_server = "false"
 # }
 
