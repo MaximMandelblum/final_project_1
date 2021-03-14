@@ -3,6 +3,7 @@
   "client_addr": "0.0.0.0",
   "data_dir": "/opt/consul",
   "datacenter": "opsschool",
+  "node_name": "{{ hostvars[inventory_hostname].tags.Name}}",
   "encrypt": "uDBV4e+LbFW3019YKPxIrg==",
   "disable_remote_exec": true,
   "disable_update_check": true,
@@ -18,5 +19,6 @@
   {% else %}
   "enable_script_checks": true,
   "server": false
+
   {% endif %}
 }

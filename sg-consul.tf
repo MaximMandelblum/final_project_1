@@ -36,6 +36,22 @@ resource "aws_security_group" "kandula_consul" {
     description = "Allow consul UI access from the world"
   }
 
+  ingress {
+    from_port   = 5601
+    to_port     = 5601
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow consul UI access from the world"
+  }
+
+  ingress {
+    from_port   = 9200
+    to_port     = 9200
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow consul UI access from the world"
+  }
+
   egress {
     from_port       = 0
     to_port         = 0

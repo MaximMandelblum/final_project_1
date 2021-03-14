@@ -2,10 +2,9 @@
 
 # Install Kibana 
 
-- name: Install Kibana with apt
+- name: Install a kibana.
   apt:
-   name: kibana
-   update_cache: yes
+    deb: https://artifacts.elastic.co/downloads/kibana/kibana-oss-7.10.2-amd64.deb
  
 # Configurations
 
@@ -13,19 +12,21 @@
   lineinfile:
    destfile: /etc/kibana/kibana.yml
    regexp: 'server.host:'
-   line: 'server.host: 0.0.0.0'
+   line: 'server.host: "0.0.0.0" '
 
 - name: Defining server port
   lineinfile:
    destfile: /etc/kibana/kibana.yml
    regexp: 'server.port:'
-   line: 'server.port: 5601'
-    
-- name: Defining Elasticsearch URL
-  lineinfile:
-   destfile: /etc/kibana/kibana.yml
-   regexp: 'elasticsearch.url:'
-   line: 'elasticsearch.url: "http://localhost:9200"'
+   line: 'server.port: "5601"'
+
+- name: copy consul kibana service  template
+  copy:
+    dest: /etc/consul.d/kibana.json
+    src: kibana.json
+    mode: '0755'
+  notify: restart consul service
+  
    
 # Starting Kibana
 

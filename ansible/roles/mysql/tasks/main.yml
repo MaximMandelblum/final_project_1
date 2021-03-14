@@ -1,22 +1,20 @@
 ---
  - name: Install the MySQL packages
+
    apt: name={{ item }} state=installed update_cache=yes state=present
    with_items:
      - mysql-server
      - mysql-client
      - python-mysqldb
      - libmysqlclient-dev
+     
 
  - name: Copy the root credentials as .my.cnf file
    template: src=root.cnf.j2 dest=~/.my.cnf mode=0600
 
- - name: Ensure Anonymous user(s) are not in the database
-   mysql_user: name='' host={{ item }} state=absent
-   with_items:
-     - localhost
-     - "{{ ansible_hostname }}"
-
- - name: Remove the test database
-   mysql_db: name=test state=absent
-   notify:
-     - Restart MySQL
+ - name: enable slow path option
+    command: "{{item}}"
+    with_items:
+     - sudo mysql -u root  -e"SET GLOBAL slow_query_log = 'ON'";
+     - sudo mysql -u root  -e"SET GLOBAL long_query_time = 20";
+     - sudo mysql -u root  -e"SET GLOBAL slow_query_log_file = '/var/log/mysql/slow-query.log'";

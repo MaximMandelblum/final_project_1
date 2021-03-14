@@ -8,7 +8,7 @@ resource "aws_instance" "consul_server" {
   subnet_id = element(module.vpc.public_subnet_ids, count.index)
   associate_public_ip_address = true
   tags = {
-    Name = "kandula-consul-server"
+    Name = "kandula-consul-serves-${count.index}"
     consul_server = "true"
   }
 }
